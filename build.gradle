@@ -1,6 +1,5 @@
 plugins {
 	id 'java'
-	// 버전 확인 필
 	id 'org.springframework.boot' version '3.1.0'
 	id 'io.spring.dependency-management' version '1.1.5'
 }
@@ -22,7 +21,6 @@ repositories {
 	mavenCentral()
 }
 
-// 라이브러리
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
@@ -40,8 +38,7 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
-// war 풀기, 인텔리제이 무료버전 필요
-task explodedWar(type: Copy) {
+tasks.explodedWar(type: Copy) {
 	into "$buildDir/exploded"
 	with war
 }
