@@ -11,7 +11,7 @@ public class ResponseRestController {
     // [Response header]
     //  Content-Type: text/html
     // [Response body]
-    //  {"name":"Robbie","age":95}
+    //  {"name":"hyemi","age":92}
     @GetMapping("/json/string")
     public String helloStringJson() {
         return "{\"name\":\"Robbie\",\"age\":95}";
@@ -20,7 +20,7 @@ public class ResponseRestController {
     // [Response header]
     //  Content-Type: application/json
     // [Response body]
-    //  {"name":"Robbie","age":95}
+    //  {"name":"hyemi","age":92}
     @GetMapping("/json/class")
     public Star helloClassJson() {
         return new Star("Robbie", 95);

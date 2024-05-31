@@ -12,7 +12,7 @@ public class ResponseController {
     // [Response header]
     //  Content-Type: text/html
     // [Response body]
-    //  {"name":"Robbie","age":95}
+    //  {"name":"hyemi","age":92}
     @GetMapping("/json/string")
     @ResponseBody
     public String helloStringJson() {
@@ -22,7 +22,7 @@ public class ResponseController {
     // [Response header]
     //  Content-Type: application/json
     // [Response body]
-    //  {"name":"Robbie","age":95}
+    //  {"name":"hyemi","age":92}
     @GetMapping("/json/class")
     @ResponseBody
     public Star helloClassJson() {
