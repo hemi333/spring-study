@@ -2,23 +2,10 @@ package com.example.spring_prepare.controller;
 
 import com.example.spring_prepare.dto.MemoRequestDto;
 import com.example.spring_prepare.dto.MemoResponseDto;
-import com.example.spring_prepare.entity.Memo;
-//import com.example.spring_prepare.service.MemoService;
 import com.example.spring_prepare.service.MemoService;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 
 @RestController
@@ -35,7 +22,6 @@ public class MemoController {
         MemoService memoService = new MemoService(jdbcTemplate);
         return memoService.createMemo(requestDto);
     }
-
 
     @GetMapping("/memos")
     public List<MemoResponseDto> getMemos() {
