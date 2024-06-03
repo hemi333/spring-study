@@ -5,14 +5,7 @@ import com.example.spring_prepare.dto.MemoResponseDto;
 import com.example.spring_prepare.entity.Memo;
 import com.example.spring_prepare.repository.MemoRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 
 public class MemoService {
