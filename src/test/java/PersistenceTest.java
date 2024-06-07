@@ -87,4 +87,36 @@ public class PersistenceTest {
 
         emf.close();
     }
+
+    @Test
+    @DisplayName("객체 동일성 보장")
+    void test4() {
+        EntityTransaction et = em.getTransaction();
+
+        et.begin();
+
+        try {
+            Memo memo3 = new Memo();
+            memo3.setId(2L);
+            memo3.setUsername("Robbert");
+            memo3.setContents("객체 동일성 보장");
+            em.persist(memo3);
+
+            Memo memo1 = em.find(Memo.class, 1);
+            Memo memo2 = em.find(Memo.class, 1);
+            Memo memo  = em.find(Memo.class, 2);
+
+            System.out.println(memo1 == memo2);
+            System.out.println(memo1 == memo);
+
+            et.commit();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            et.rollback();
+        } finally {
+            em.close();
+        }
+
+        emf.close();
+    }
 }
