@@ -178,4 +178,37 @@ public class PersistenceTest {
 
         emf.close();
     }
+
+    @Test
+    @DisplayName("flush() 메서드 확인")
+    void test7() {
+        EntityTransaction et = em.getTransaction();
+
+        et.begin();
+
+        try {
+            Memo memo = new Memo();
+            memo.setId(4L);
+            memo.setUsername("Flush");
+            memo.setContents("Flush() 메서드 호출");
+            em.persist(memo);
+
+            System.out.println("flush() 전");
+            em.flush(); // flush() 직접 호출
+            System.out.println("flush() 후\n");
+
+
+            System.out.println("트랜잭션 commit 전");
+            et.commit();
+            System.out.println("트랜잭션 commit 후");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            et.rollback();
+        } finally {
+            em.close();
+        }
+
+        emf.close();
+    }
 }
