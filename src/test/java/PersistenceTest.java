@@ -119,4 +119,29 @@ public class PersistenceTest {
 
         emf.close();
     }
+
+    @Test
+    @DisplayName("Entity 삭제")
+    void test5() {
+        EntityTransaction et = em.getTransaction();
+
+        et.begin();
+
+        try {
+
+            Memo memo = em.find(Memo.class, 2);
+
+            em.remove(memo);
+
+            et.commit();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            et.rollback();
+        } finally {
+            em.close();
+        }
+
+        emf.close();
+    }
 }
