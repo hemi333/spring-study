@@ -144,4 +144,38 @@ public class PersistenceTest {
 
         emf.close();
     }
+
+    @Test
+    @DisplayName("쓰기 지연 저장소(ActionQueue) 확인")
+    void test6() {
+        EntityTransaction et = em.getTransaction();
+
+        et.begin();
+
+        try {
+            Memo memo = new Memo();
+            memo.setId(2L);
+            memo.setUsername("Robbert");
+            memo.setContents("쓰기 지연 저장소");
+            em.persist(memo);
+
+            Memo memo2 = new Memo();
+            memo2.setId(3L);
+            memo2.setUsername("Bob");
+            memo2.setContents("과연 저장을 잘 하고 있을까?");
+            em.persist(memo2);
+
+            System.out.println("트랜잭션 commit 전");
+            et.commit();
+            System.out.println("트랜잭션 commit 후");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            et.rollback();
+        } finally {
+            em.close();
+        }
+
+        emf.close();
+    }
 }
