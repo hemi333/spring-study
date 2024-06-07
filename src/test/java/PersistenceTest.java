@@ -44,4 +44,24 @@ public class PersistenceTest {
 
         emf.close();
     }
+
+    @Test
+    @DisplayName("Entity 조회 : 캐시 저장소에 해당하는 Id가 존재하지 않은 경우")
+    void test2() {
+        try {
+
+            Memo memo = em.find(Memo.class, 1);
+            System.out.println("memo.getId() = " + memo.getId());
+            System.out.println("memo.getUsername() = " + memo.getUsername());
+            System.out.println("memo.getContents() = " + memo.getContents());
+
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            em.close();
+        }
+
+        emf.close();
+    }
 }
