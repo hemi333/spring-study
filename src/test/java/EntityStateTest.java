@@ -156,4 +156,82 @@ public class EntityStateTest {
 
         emf.close();
     }
+
+    @Test
+    @DisplayName("merge() : 저장")
+    void test5() {
+        EntityTransaction et = em.getTransaction();
+
+        et.begin();
+
+        try {
+
+            Memo memo = new Memo();
+            memo.setId(3L);
+            memo.setUsername("merge()");
+            memo.setContents("merge() 저장");
+
+            System.out.println("merge() 호출");
+            Memo mergedMemo = em.merge(memo);
+
+            System.out.println("em.contains(memo) = " + em.contains(memo));
+            System.out.println("em.contains(mergedMemo) = " + em.contains(mergedMemo));
+
+            System.out.println("트랜잭션 commit 전");
+            et.commit();
+            System.out.println("트랜잭션 commit 후");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            et.rollback();
+        } finally {
+            em.close();
+        }
+
+        emf.close();
+    }
+
+    @Test
+    @DisplayName("merge() : 수정")
+    void test6() {
+        EntityTransaction et = em.getTransaction();
+
+        et.begin();
+
+        try {
+
+            Memo memo = em.find(Memo.class, 3);
+            System.out.println("memo.getId() = " + memo.getId());
+            System.out.println("memo.getUsername() = " + memo.getUsername());
+            System.out.println("memo.getContents() = " + memo.getContents());
+
+            System.out.println("em.contains(memo) = " + em.contains(memo));
+
+            System.out.println("detach() 호출");
+            em.detach(memo); // 준영속 상태로 전환
+            System.out.println("em.contains(memo) = " + em.contains(memo));
+
+            System.out.println("준영속 memo 값 수정");
+            memo.setContents("merge() 수정");
+
+            System.out.println("\n merge() 호출");
+            Memo mergedMemo = em.merge(memo);
+            System.out.println("mergedMemo.getContents() = " + mergedMemo.getContents());
+
+            System.out.println("em.contains(memo) = " + em.contains(memo));
+            System.out.println("em.contains(mergedMemo) = " + em.contains(mergedMemo));
+
+            System.out.println("트랜잭션 commit 전");
+            et.commit();
+            System.out.println("트랜잭션 commit 후");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            et.rollback();
+        } finally {
+            em.close();
+        }
+
+        emf.close();
+    }
 }
