@@ -83,4 +83,46 @@ public class EntityStateTest {
 
         emf.close();
     }
+
+    @Test
+    @DisplayName("준영속 상태 : clear()")
+    void test3() {
+        EntityTransaction et = em.getTransaction();
+
+        et.begin();
+
+        try {
+
+            Memo memo1 = em.find(Memo.class, 1);
+            Memo memo2 = em.find(Memo.class, 2);
+
+            // em.contains(entity) : Entity 객체가 현재 영속성 컨텍스트에 저장되어 관리되는 상태인지 확인하는 메서드
+            System.out.println("em.contains(memo1) = " + em.contains(memo1));
+            System.out.println("em.contains(memo2) = " + em.contains(memo2));
+
+            System.out.println("clear() 호출");
+            em.clear();
+            System.out.println("em.contains(memo1) = " + em.contains(memo1));
+            System.out.println("em.contains(memo2) = " + em.contains(memo2));
+
+            System.out.println("memo#1 Entity 다시 조회");
+            Memo memo = em.find(Memo.class, 1);
+            System.out.println("em.contains(memo) = " + em.contains(memo));
+            System.out.println("\n memo Entity 수정 시도");
+            memo.setUsername("Update");
+            memo.setContents("memo Entity Update");
+
+            System.out.println("트랜잭션 commit 전");
+            et.commit();
+            System.out.println("트랜잭션 commit 후");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            et.rollback();
+        } finally {
+            em.close();
+        }
+
+        emf.close();
+    }
 }
