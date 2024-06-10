@@ -125,4 +125,35 @@ public class EntityStateTest {
 
         emf.close();
     }
+
+    @Test
+    @DisplayName("준영속 상태 : close()")
+    void test4() {
+        EntityTransaction et = em.getTransaction();
+
+        et.begin();
+
+        try {
+
+            Memo memo1 = em.find(Memo.class, 1);
+            Memo memo2 = em.find(Memo.class, 2);
+
+            // em.contains(entity) : Entity 객체가 현재 영속성 컨텍스트에 저장되어 관리되는 상태인지 확인하는 메서드
+            System.out.println("em.contains(memo1) = " + em.contains(memo1));
+            System.out.println("em.contains(memo2) = " + em.contains(memo2));
+
+            System.out.println("close() 호출");
+            em.close();
+            Memo memo = em.find(Memo.class, 2); // Session/EntityManager is closed 메시지와 함께 오류 발생
+            System.out.println("memo.getId() = " + memo.getId());
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            et.rollback();
+        } finally {
+            em.close();
+        }
+
+        emf.close();
+    }
 }
