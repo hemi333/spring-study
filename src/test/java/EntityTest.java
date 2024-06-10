@@ -1,4 +1,4 @@
-import com.example.spring_prepare.entity.Memo;
+import com.example.spring_prepare.Memo;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;

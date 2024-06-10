@@ -1,37 +1,50 @@
 package com.example.spring_prepare;
 
-import lombok.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-@Getter
-@Setter
-// final이 달린 필드를 가지는 생성자를 만들어줌
-@RequiredArgsConstructor
-// getter, setter 둘다 만들어줌
-//@AllArgsConstructor
-// 기본 생성자를 만들어줌
-//@NoArgsConstructor
+@Entity // JPA가 관리할 수 있는 Entity 클래스 지정
+@Table(name = "memo") // 매핑할 테이블의 이름을 지정
 public class Memo {
+    @Id
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    // nullable: null 허용 여부
+    // unique: 중복 허용 여부 (false 일때 중복 허용)
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
+
+    // length: 컬럼 길이 지정
+    @Column(name = "contents", nullable = false, length = 500)
     private String contents;
 
-//    public Memo(String username, String contents) {
-//        this.username = username;
-//        this.contents = contents;
-//    }
-//
-//    public void setUsername(String username) {
-//        this.username = username;
-//    }
-//
-//    public String getUsername() {
-//        return this.username;
-//    }
-}
+    public Long getId() {
+        return id;
+    }
 
-class Main {
-    public static void main(String[] args) {
-        Memo memo = new Memo();
-        memo.setUsername("Robbie");
-        System.out.println(memo.getUsername());
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getContents() {
+        return contents;
+    }
+
+    public void setContents(String contents) {
+        this.contents = contents;
     }
 }
+
+
+

@@ -1,1 +1,4 @@
 rootProject.name = 'spring-prepare'
+include 'src:test:reso'
+findProject(':src:test:reso')?.name = 'reso'
+
