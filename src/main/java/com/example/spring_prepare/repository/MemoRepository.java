@@ -3,12 +3,15 @@ package com.example.spring_prepare.repository;
 import com.example.spring_prepare.dto.MemoRequestDto;
 import com.example.spring_prepare.dto.MemoResponseDto;
 import com.example.spring_prepare.entity.Memo;
+import jakarta.persistence.EntityManager;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,14 +34,12 @@ public class MemoRepository {
 
         String sql = "INSERT INTO memo (username, contents) VALUES (?, ?)";
         jdbcTemplate.update(con -> {
-                    PreparedStatement preparedStatement = con.prepareStatement(sql,
-                            Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement preparedStatement = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-                    preparedStatement.setString(1, memo.getUsername());
-                    preparedStatement.setString(2, memo.getContents());
-                    return preparedStatement;
-                },
-                keyHolder);
+            preparedStatement.setString(1, memo.getUsername());
+            preparedStatement.setString(2, memo.getContents());
+            return preparedStatement;
+        }, keyHolder);
 
         // DB Insert 후 받아온 기본키 확인
         Long id = keyHolder.getKey().longValue();
@@ -88,5 +89,15 @@ public class MemoRepository {
                 return null;
             }
         }, id);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED) // default
+    public Memo createMemo(EntityManager em) {
+        Memo memo = em.find(Memo.class, 1);
+        memo.setUsername("Robbie");
+        memo.setContents("@Transactional 전파 테스트 중!");
+
+        System.out.println("createMemo 메서드 종료");
+        return memo;
     }
 }
