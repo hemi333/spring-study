@@ -15,7 +15,7 @@ public class Memo extends Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "username", nullable = false)
+    @Column(name = "username", nullable = false, unique = false)
     private String username;
     @Column(name = "contents", nullable = false, length = 500)
     private String contents;
