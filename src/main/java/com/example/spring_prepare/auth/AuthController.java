@@ -1,7 +1,9 @@
 package com.example.spring_prepare.auth;
 
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +30,28 @@ public class AuthController {
         System.out.println("value = " + value);
 
         return "getCookie : " + value;
+    }
+
+    @GetMapping("/create-session")
+    public String createSession(HttpServletRequest req) {
+        // 세션이 존재할 경우 세션 반환, 없을 경우 새로운 세션을 생성한 후 반환
+        HttpSession session = req.getSession(true);
+
+        // 세션에 저장될 정보 Name - Value 를 추가합니다.
+        session.setAttribute(AUTHORIZATION_HEADER, "Hyemi Auth");
+
+        return "createSession";
+    }
+
+    @GetMapping("/get-session")
+    public String getSession(HttpServletRequest req) {
+        // 세션이 존재할 경우 세션 반환, 없을 경우 null 반환
+        HttpSession session = req.getSession(false);
+
+        String value = (String) session.getAttribute(AUTHORIZATION_HEADER); // 가져온 세션에 저장된 Value 를 Name 을 사용하여 가져옵니다.
+        System.out.println("value = " + value);
+
+        return "getSession : " + value;
     }
 
     public static void addCookie(String cookieValue, HttpServletResponse res) {
