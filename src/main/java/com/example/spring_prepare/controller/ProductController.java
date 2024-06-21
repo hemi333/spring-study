@@ -1,7 +1,8 @@
 package com.example.spring_prepare.controller;
 
 import com.example.spring_prepare.entity.User;
-import jakarta.servlet.http.HttpServletRequest;
+import com.example.spring_prepare.security.UserDetailsImpl;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,11 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ProductController {
 
     @GetMapping("/products")
-    public String getProducts(HttpServletRequest req) {
-        System.out.println("ProductController.getProducts : 인증 완료");
-        User user = (User) req.getAttribute("user");
+    public String getProducts(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+        // Authentication의 Principal
+        User user = userDetails.getUser();
         System.out.println("user.getUsername() = " + user.getUsername());
-
+        System.out.println("user.getEmail() = " + user.getEmail());
         return "redirect:/";
     }
 }
