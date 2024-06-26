@@ -1,7 +1,7 @@
 # Read Me First
 The following was discovered as part of building this project:
 
-* The original package name 'com.example.spring-resttemplate-client' is invalid and this project uses 'com.example.spring_resttemplate_client' instead.
+* The original package name 'com.example.spring-resttemplate-server' is invalid and this project uses 'com.example.spring_resttemplate_server' instead.
 
 # Getting Started
 
