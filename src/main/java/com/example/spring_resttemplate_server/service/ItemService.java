@@ -20,11 +20,20 @@ public class ItemService {
     );
 
     public Item getCallObject(String query) {
+        for (Item item : itemList) {
+            if(item.getTitle().equals(query)) {
+                return item;
+            }
+        }
         return null;
     }
 
     public ItemResponseDto getCallList() {
-        return null;
+        ItemResponseDto responseDto = new ItemResponseDto();
+        for (Item item : itemList) {
+            responseDto.setItems(item);
+        }
+        return responseDto;
     }
 
     public Item postCall(String query, UserRequestDto requestDto) {
