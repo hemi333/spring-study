@@ -21,7 +21,7 @@ public class ItemService {
 
     public Item getCallObject(String query) {
         for (Item item : itemList) {
-            if(item.getTitle().equals(query)) {
+            if (item.getTitle().equals(query)) {
                 return item;
             }
         }
@@ -44,6 +44,10 @@ public class ItemService {
     }
 
     public ItemResponseDto exchangeCall(String token, UserRequestDto requestDto) {
-        return null;
+        System.out.println("token = " + token);
+        System.out.println("requestDto.getUsername() = " + requestDto.getUsername());
+        System.out.println("requestDto.getPassword() = " + requestDto.getPassword());
+
+        return getCallList();
     }
 }
