@@ -1,13 +1,13 @@
-package com.example.spring_resttemplate_client;
+package com.example.jpa_advance;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringResttemplateClientApplication {
+public class JpaAdvanceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringResttemplateClientApplication.class, args);
+		SpringApplication.run(JpaAdvanceApplication.class, args);
 	}
 
 }
