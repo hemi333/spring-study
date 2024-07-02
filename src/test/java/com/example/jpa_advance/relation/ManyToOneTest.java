@@ -126,6 +126,7 @@ public class ManyToOneTest {
 
         // 음식을 주문한 고객 정보 조회
         System.out.println("food.getUser().getName() = " + food.getUser().getName());
+        System.out.println("food.getUser().getId() = " + food.getUser().getId());
     }
 
     @Test
