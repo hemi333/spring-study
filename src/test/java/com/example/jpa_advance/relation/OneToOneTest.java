@@ -92,6 +92,30 @@ public class OneToOneTest {
         foodRepository.save(food);
     }
 
+    @Test
+    @DisplayName("1대1 조회 : Food 기준 user 정보 조회")
+    void test5() {
+        Food food = foodRepository.findById(1L).orElseThrow(NullPointerException::new);
+        // 음식 정보 조회
+        System.out.println("food.getName() = " + food.getName());
+
+        // 음식을 주문한 고객 정보 조회
+        System.out.println("food.getUser().getName() = " + food.getUser().getName());
+    }
+
+    @Test
+    @DisplayName("1대1 조회 : User 기준 food 정보 조회")
+    void test6() {
+        User user = userRepository.findById(1L).orElseThrow(NullPointerException::new);
+        // 고객 정보 조회
+        System.out.println("user.getName() = " + user.getName());
+
+        // 해당 고객이 주문한 음식 정보 조회
+        Food food = user.getFood();
+        System.out.println("food.getName() = " + food.getName());
+        System.out.println("food.getPrice() = " + food.getPrice());
+    }
+
 }
 
 
