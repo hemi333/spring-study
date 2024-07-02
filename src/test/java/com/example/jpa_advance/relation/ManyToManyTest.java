@@ -180,4 +180,33 @@ public class ManyToManyTest {
         }
     }
 
+    @Test
+    @DisplayName("N대M 조회 : Food 기준 user 정보 조회")
+    void test6() {
+        Food food = foodRepository.findById(1L).orElseThrow(NullPointerException::new);
+        // 음식 정보 조회
+        System.out.println("food.getName() = " + food.getName());
+
+        // 음식을 주문한 고객 정보 조회
+        List<User> userList = food.getUserList();
+        for (User user : userList) {
+            System.out.println("user.getName() = " + user.getName());
+        }
+    }
+
+    @Test
+    @DisplayName("N대M 조회 : User 기준 food 정보 조회")
+    void test7() {
+        User user = userRepository.findById(1L).orElseThrow(NullPointerException::new);
+        // 고객 정보 조회
+        System.out.println("user.getName() = " + user.getName());
+
+        // 해당 고객이 주문한 음식 정보 조회
+        List<Food> foodList = user.getFoodList();
+        for (Food food : foodList) {
+            System.out.println("food.getName() = " + food.getName());
+            System.out.println("food.getPrice() = " + food.getPrice());
+        }
+    }
+
 }
