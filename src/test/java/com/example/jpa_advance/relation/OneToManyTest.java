@@ -11,6 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Transactional
 @SpringBootTest
 public class OneToManyTest {
@@ -41,6 +43,19 @@ public class OneToManyTest {
         foodRepository.save(food);
 
         // 추가적인 UPDATE 쿼리 발생을 확인할 수 있습니다.
+    }
+
+    @Test
+    @DisplayName("1대N 조회 테스트")
+    void test2() {
+        Food food = foodRepository.findById(1L).orElseThrow(NullPointerException::new);
+        System.out.println("food.getName() = " + food.getName());
+
+        // 해당 음식을 주문한 고객 정보 조회
+        List<User> userList = food.getUserList();
+        for (User user : userList) {
+            System.out.println("user.getName() = " + user.getName());
+        }
     }
 
 }
