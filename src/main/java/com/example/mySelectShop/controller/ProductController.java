@@ -1,14 +1,14 @@
 package com.example.mySelectShop.controller;
 
+import com.example.mySelectShop.dto.ProductMypriceRequestDto;
 import com.example.mySelectShop.dto.ProductRequestDto;
 import com.example.mySelectShop.dto.ProductResponseDto;
 import com.example.mySelectShop.entity.Product;
 import com.example.mySelectShop.service.ProductService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,5 +20,15 @@ public class ProductController {
     @PostMapping("/products")
     public ProductResponseDto createProduct(@RequestBody ProductRequestDto requestDto) {
         return productService.createProduct(requestDto);
+    }
+
+    @PutMapping("/products/{id}")
+    public ProductResponseDto updateProduct(@PathVariable Long id, @RequestBody ProductMypriceRequestDto requestDto) {
+        return productService.updateProduct(id, requestDto);
+    }
+
+    @GetMapping("/products")
+    public List<ProductResponseDto> getProducts() {
+       return productService.getProducts();
     }
 }
