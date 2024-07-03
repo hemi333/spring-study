@@ -8,6 +8,10 @@ import com.example.mySelectShop.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -37,5 +41,16 @@ public class ProductService {
 
         return new ProductResponseDto(product);
 
+    }
+
+    public List<ProductResponseDto> getProducts() {
+        List<Product> productList = productRepository.findAll();
+        List<ProductResponseDto> responseDtoList = new ArrayList<>();
+
+        // iter + enter
+        for (Product product : productList) {
+            responseDtoList.add(new ProductResponseDto(product));
+        }
+        return responseDtoList;
     }
 }
