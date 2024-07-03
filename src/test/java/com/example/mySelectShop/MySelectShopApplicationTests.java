@@ -1,10 +1,10 @@
-package com.example.jpa_advance;
+package com.example.mySelectShop;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class JpaAdvanceApplicationTests {
+class MySelectShopApplicationTests {
 
 	@Test
 	void contextLoads() {
