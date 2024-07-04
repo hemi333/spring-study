@@ -24,6 +24,7 @@ public class FolderController {
         folderService.addFolders(folderNames, userDetails.getUser());
     }
 
+    // 회원이 등록한 모든 폴더 조회
     @GetMapping("/folders")
     public List<FolderResponseDto> getFolders(@AuthenticationPrincipal UserDetailsImpl userDetails) {
         return folderService.getFolders(userDetails.getUser());
