@@ -4,12 +4,12 @@ import com.example.mySelectShop.dto.ProductMypriceRequestDto;
 import com.example.mySelectShop.dto.ProductRequestDto;
 import com.example.mySelectShop.dto.ProductResponseDto;
 import com.example.mySelectShop.entity.Product;
+import com.example.mySelectShop.entity.User;
 import com.example.mySelectShop.naver.dto.ItemDto;
 import com.example.mySelectShop.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +22,8 @@ public class ProductService {
 
     public static final int MIN_MY_PRICE = 100;
 
-    public ProductResponseDto createProduct(ProductRequestDto requestDto) {
-        Product product = productRepository.save(new Product(requestDto));
+    public ProductResponseDto createProduct(ProductRequestDto requestDto, User user) {
+        Product product = productRepository.save(new Product(requestDto, user));
         return new ProductResponseDto(product);
     }
 
@@ -44,8 +44,8 @@ public class ProductService {
 
     }
 
-    public List<ProductResponseDto> getProducts() {
-        List<Product> productList = productRepository.findAll();
+    public List<ProductResponseDto> getProducts(User user) {
+        List<Product> productList = productRepository.findAllByUser(user);
         List<ProductResponseDto> responseDtoList = new ArrayList<>();
 
         // iter + enter
