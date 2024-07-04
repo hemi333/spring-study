@@ -50,6 +50,7 @@ public class ProductService {
 
     }
 
+    @Transactional(readOnly = true) // @Transactional: 지연 로딩 기능 사용을 위한 Annotation / readOnly = true: 성능 향상을 위한 옵션
     public Page<ProductResponseDto> getProducts(User user, int page, int size, String sortBy, boolean isAsc) {
         Sort.Direction direction = isAsc ? Sort.Direction.ASC : Sort.Direction.DESC;
         Sort sort = Sort.by(direction, sortBy);
