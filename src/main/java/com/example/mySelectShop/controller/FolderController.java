@@ -19,10 +19,12 @@ public class FolderController {
 
     @PostMapping("/folders")
     public void addFolders(@RequestBody FolderRequestDto folderRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        List<String> folderNames  = folderRequestDto.getFolderNames();
+
+        List<String> folderNames = folderRequestDto.getFolderNames();
         folderService.addFolders(folderNames, userDetails.getUser());
     }
 
+    // 회원이 등록한 모든 폴더 조회
     @GetMapping("/folders")
     public List<FolderResponseDto> getFolders(@AuthenticationPrincipal UserDetailsImpl userDetails) {
         return folderService.getFolders(userDetails.getUser());
